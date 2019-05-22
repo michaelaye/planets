@@ -39,6 +39,7 @@ Planetary Database
 Modified by Paul Hayne from the "planets.py" library by Raymond T. Pierrehumbert
 
 Last modified: June, 2017
+
 Sources:
 
 1. http://nssdc.gsfc.nasa.gov/planetary/factsheet/
