@@ -16,9 +16,14 @@
 
 # Dependencies
 import numpy as np
+import spiceypy as spice
+from astropy import units as u
+from astropy.constants import G, au, sigma_sb
 
-# Constants
-from astropy.constants import au, sigma_sb, G
+import spicer
+
+spicer.load_generic_kernels()
+
 
 AU = au.value / 1e9  # Astronomical Unit [m]
 sigma = sigma_sb.value  # Stefan-Boltzmann constant [W.m-2.K-4]
@@ -61,9 +66,9 @@ class Planet:
         line2 = 'Type "help(Planet)" for more information\n'
         return line1 + line2
 
-    def __init__(self):
+    def __init__(self, R=None):
         self.name = None  # Name of the planet
-        self.R = None  # Mean radius of planet
+        self._R = R  # Mean radius of planet
         self.g = None  # Surface gravitational acceleration
         self.S = None  # Annual mean solar constant (current)
         self.psurf = None  # Surface pressure [Pa]
@@ -91,6 +96,13 @@ class Planet:
         self.Tsavg = None  # Mean surface temperature
         self.Tsmax = None  # Maximum surface temperature
 
+    @property
+    def R(self):
+        if self._R is None:
+            results = spice.bodvrd(self.name, "RADII", 3)
+            self._R = np.mean(results[1]) * u.km
+        return self._R
+
     def Teq(self, latitude=0):
         F = self.S
         A = self.albedo
@@ -101,7 +113,7 @@ class Planet:
 # ----------------------------------------------------
 Mercury = Planet()
 Mercury.name = "Mercury"  # Name of the planet
-Mercury.R = 2.4397e6  # Mean radius of planet
+# Mercury.R = 2.4397e6  # Mean radius of planet
 Mercury.g = 3.70  # Surface gravitational acceleration
 Mercury.albedo = 0.119  # Bond albedo
 Mercury.emissivity = 0.95  # Infrared emissivity
@@ -122,7 +134,7 @@ Mercury.Tsmax = 725.0  # Maximum surface temperature
 # ----------------------------------------------------
 Venus = Planet()
 Venus.name = "Venus"  # Name of the planet
-Venus.R = 6.0518e6  # Mean radius of planet
+# Venus.R = 6.0518e6  # Mean radius of planet
 Venus.g = 8.87  # Surface gravitational acceleration
 Venus.albedo = 0.750  # Bond albedo
 Venus.emissivity = 0.95  # Infrared emissivity
@@ -143,7 +155,7 @@ Venus.Tsmax = 737.0  # Maximum surface temperature [K]
 # ----------------------------------------------------
 Earth = Planet()
 Earth.name = "Earth"  # Name of the planet
-Earth.R = 6.371e6  # Mean radius of planet
+# Earth.R = 6.371e6  # Mean radius of planet
 Earth.g = 9.798  # Surface gravitational acceleration
 Earth.S = 1361  # Annual mean solar constant (current)
 Earth.albedo = 0.306  # Bond albedo
@@ -164,7 +176,6 @@ Earth.Tsmax = 320.0  # Maximum surface temperature [K]
 # ----------------------------------------------------
 Mars = Planet()
 Mars.name = "Mars"  # Name of the planet
-Mars.R = 3.390e6  # Mean radius of planet
 Mars.g = 3.71  # Surface gravitational acceleration
 Mars.albedo = 0.250  # Bond albedo
 Mars.emissivity = 0.95  # Infrared emissivity
@@ -185,7 +196,6 @@ Mars.Tsmax = 295.0  # Maximum surface temperature [K]
 # ----------------------------------------------------
 Jupiter = Planet()
 Jupiter.name = "Jupiter"  # Name of the planet
-Jupiter.R = 69.911e6  # Mean radius of planet
 Jupiter.g = 24.79  # Surface gravitational acceleration
 Jupiter.albedo = 0.343  # Bond albedo
 Jupiter.S = 50.5  # Annual mean solar constant (current)
@@ -205,7 +215,6 @@ Jupiter.Tsmax = None  # Maximum surface temperature [K]
 # ----------------------------------------------------
 Saturn = Planet()
 Saturn.name = "Saturn"  # Name of the planet
-Saturn.R = 58.232e6  # Mean radius of planet
 Saturn.g = 10.44  # Surface gravitational acceleration
 Saturn.albedo = 0.342  # Bond albedo
 Saturn.S = 14.90  # Annual mean solar constant (current)
@@ -224,7 +233,6 @@ Saturn.Tsmax = None  # Maximum surface temperature [K]
 # ----------------------------------------------------
 Uranus = Planet()
 Uranus.name = "Uranus"  # Name of the planet
-Uranus.R = 25.362e6  # Mean radius of planet
 Uranus.g = 8.87  # Surface gravitational acceleration
 Uranus.albedo = 0.300  # Bond albedo
 Uranus.S = 3.71  # Annual mean solar constant (current)
@@ -244,7 +252,6 @@ Uranus.Tsmax = None  # Maximum surface temperature [K]
 # ----------------------------------------------------
 Neptune = Planet()
 Neptune.name = "Neptune"  # Name of the planet
-Neptune.R = 26.624e6  # Mean radius of planet
 Neptune.g = 11.15  # Surface gravitational acceleration
 Neptune.albedo = 0.290  # Bond albedo
 Neptune.S = 1.51  # Annual mean solar constant (current)
@@ -263,7 +270,6 @@ Neptune.Tsmax = None  # Maximum surface temperature [K]
 # ----------------------------------------------------
 Pluto = Planet()
 Pluto.name = "Pluto"  # Name of the planet
-Pluto.R = 1.195e6  # Mean radius of planet
 Pluto.g = 0.58  # Surface gravitational acceleration
 Pluto.albedo = 0.5  # Bond albedo
 Pluto.emissivity = 0.95  # Infrared emissivity
@@ -287,7 +293,6 @@ Pluto.Tsmax = None  # Maximum surface temperature [K]
 # ----------------------------------------------------
 Moon = Planet()
 Moon.name = "Moon"  # Name of the planet
-Moon.R = 1.7374e6  # Mean radius of planet [m]
 Moon.g = 1.62  # Surface gravitational acceleration [m.s-2]
 Moon.S = 1361.0  # Annual mean solar constant [W.m-2]
 Moon.psurf = 3.0e-10  # Surface pressure [Pa]
@@ -327,7 +332,6 @@ Moon.Tsmin = 95.0  # Minimum surface temperature [K]
 
 Titan = Planet()
 Titan.name = "Titan"  # Name of the planet
-Titan.R = 2.575e6  # Mean radius of planet
 Titan.g = 1.35  # Surface gravitational acceleration
 Titan.S = Saturn.S  # Annual mean solar constant (current)
 Titan.albedo = 0.22  # Bond albedo (Not yet updated from Cassini)
@@ -349,7 +353,6 @@ Titan.Tsmax = 94.0  # Maximum surface temperature [K]
 
 Europa = Planet()
 Europa.name = "Europa"  # Name of the planet
-Europa.R = 1.560e6  # Mean radius of planet
 Europa.g = 1.31  # Surface gravitational acceleration
 Europa.psurf = 1.0e-7  # Average surface pressure [Pa]
 
@@ -385,7 +388,6 @@ Europa.Tsmax = 130.0  # Maximum surface temperature [K]
 
 Ganymede = Planet()
 Ganymede.name = "Ganymede"  # Name of the planet
-Ganymede.R = 2.631e6  # Mean radius of planet [m]
 Ganymede.g = 1.43  # Surface gravitational acceleration
 Ganymede.psurf = 1.0e-6  # Surface pressure [Pa]
 
@@ -417,7 +419,6 @@ Ganymede.Tsmax = 140.0  # Maximum surface temperature [K]
 
 Triton = Planet()
 Triton.name = "Triton"  # Name of the planet
-Triton.R = 2.7068e6 / 2.0  # Mean radius of planet
 Triton.g = 0.78  # Surface gravitational acceleration
 Triton.psurf = 2e-5  # Average surface pressure [Pa]
 
@@ -447,9 +448,8 @@ Triton.Tsmax = None  # Maximum surface temperature [K]
 # --------------------------------------------------------------------------
 
 # Bennu
-Bennu = Planet()
+Bennu = Planet(R=262.5 * u.m) # Bennu is not in generic SPICE kernel
 Bennu.name = "Bennu"  # Name of the planet
-Bennu.R = 246.0  # Mean radius of planet [m]
 Bennu.g = 1.0e-5  # Surface gravitational acceleration [m.s-2]
 Bennu.S = 1072.7  # Annual mean solar constant [W.m-2]
 Bennu.albedo = 0.045  # Bond albedo
@@ -479,4 +479,3 @@ Bennu.Lp = 0.0  # Longitude of perihelion [radians]
 #
 Bennu.Tsavg = 270.0  # Mean surface temperature [K]
 Bennu.Tsmax = 400.0  # Maximum surface temperature [K]
-
