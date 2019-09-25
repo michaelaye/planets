@@ -19,7 +19,7 @@ test_requirements = ['pytest', ]
 
 setup(
     name='planets',
-    version='0.4.4',
+    version='0.4.5',
     description="Library to provide planetary constants",
     long_description=readme + '\n\n' + history,
     author="K.-Michael Aye",

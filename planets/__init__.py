@@ -4,6 +4,6 @@
 
 __author__ = """K.-Michael Aye"""
 __email__ = 'kmichael.aye@gmail.com'
-__version__ = '0.4.4'
+__version__ = '0.4.5'
 
 from ._planets import *
