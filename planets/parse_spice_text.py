@@ -85,7 +85,7 @@ def get_data(s: str) -> str:
             continue
 
         if in_data:
-            print(line)
+            # print(line)
             data.append(line)
 
     return "\n".join(data)
