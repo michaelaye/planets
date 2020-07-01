@@ -25,7 +25,7 @@ import spicer
 spicer.load_generic_kernels()
 
 
-AU = au.value / 1e9  # Astronomical Unit [m]
+AU = au.value  # Astronomical Unit [m]
 sigma = sigma_sb.value  # Stefan-Boltzmann constant [W.m-2.K-4]
 G = G.value  # Gravitational constant
 
@@ -448,7 +448,7 @@ Triton.Tsmax = None  # Maximum surface temperature [K]
 # --------------------------------------------------------------------------
 
 # Bennu
-Bennu = Planet(R=262.5 * u.m) # Bennu is not in generic SPICE kernel
+Bennu = Planet(R=262.5 * u.m)  # Bennu is not in generic SPICE kernel
 Bennu.name = "Bennu"  # Name of the planet
 Bennu.g = 1.0e-5  # Surface gravitational acceleration [m.s-2]
 Bennu.S = 1072.7  # Annual mean solar constant [W.m-2]
