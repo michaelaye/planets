@@ -21,7 +21,7 @@ test_requirements = [
 
 setup(
     name="planets",
-    version="0.4.5",
+    version="version='0.4.6'",
     description="Library to provide planetary constants",
     long_description=readme + "\n\n" + history,
     author="K.-Michael Aye",
