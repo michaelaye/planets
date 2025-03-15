@@ -11,9 +11,11 @@ All notable changes to this project will be documented in this file.
 - Added direct file downloading with pooch package
 
 ### Changed
+- Modernized package structure using pyproject.toml instead of setup.py/setup.cfg
 - Simplified dependency handling, removed unnecessary dependencies
 - Converted HISTORY.rst to CHANGELOG.md for better readability
 - Updated documentation
+- Added support for Python 3.8, 3.9, 3.10, 3.11, and 3.12
 
 ## [0.5.0] - 2023-06-24
 

@@ -1,0 +1,3 @@
+# Credits
+
+{% include "../AUTHORS.md" %} 

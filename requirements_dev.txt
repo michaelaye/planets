@@ -1,3 +1,9 @@
+# Development dependencies have been moved to pyproject.toml
+# This file is kept for backward compatibility
+# To install development dependencies, use:
+#   pip install -e ".[dev]"
+#
+# For reference, these were the previous development dependencies:
 pip
 bumpversion
 wheel

@@ -69,3 +69,9 @@ junit.xml
 .mypy_cache
 pyrightconfig.json
 .cursor/settings.json
+
+# Modern Python packaging
+.pytest_cache/
+.ruff_cache/
+.nox/
+__pypackages__/
