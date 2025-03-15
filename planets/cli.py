@@ -100,7 +100,14 @@ def create_parser():
 
 def main(args=None):
     """Command-line interface for the planets package."""
+    # Only create the parser when the function is actually called
+    # This prevents interference with other tools like pytest during imports
     parser = create_parser()
+
+    # Don't parse args when importing or when pytest is trying to discover tests
+    if args is None and "pytest" in sys.modules:
+        return 0
+
     args = parser.parse_args(args)
 
     # Process arguments
