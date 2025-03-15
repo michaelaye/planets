@@ -8,6 +8,9 @@ import sys
 import textwrap
 from typing import Any, Dict, List
 
+# Cache the parser to avoid creating it multiple times
+_parser = None
+
 
 def get_all_bodies() -> List[str]:
     """Get a list of all bodies from the planets module."""
@@ -79,6 +82,10 @@ def format_attribute_value(name: str, value: Any) -> str:
 
 def create_parser():
     """Create the argument parser for the CLI."""
+    global _parser
+    if _parser is not None:
+        return _parser
+
     parser = argparse.ArgumentParser(
         description="Command-line interface for the planets package",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -95,19 +102,13 @@ def create_parser():
     group.add_argument("--list", action="store_true", help="List all available bodies")
     group.add_argument("--body", metavar="NAME", help="Show attributes for a specific body")
 
+    _parser = parser
     return parser
 
 
 def main(args=None):
     """Command-line interface for the planets package."""
-    # Only create the parser when the function is actually called
-    # This prevents interference with other tools like pytest during imports
     parser = create_parser()
-
-    # Don't parse args when importing or when pytest is trying to discover tests
-    if args is None and "pytest" in sys.modules:
-        return 0
-
     args = parser.parse_args(args)
 
     # Process arguments

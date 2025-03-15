@@ -44,41 +44,49 @@ def capture_stdout(command, *args, **kwargs):
 
 def test_command_line_interface():
     """Test the CLI."""
-    # Test default output
-    exit_code, output = capture_stdout(cli.main)
-    assert exit_code == 0
-    assert "planets.cli.main" in output
-    assert "Use --help to see available commands" in output
+    # Save original sys.argv and mock it during testing
+    original_argv = sys.argv
+    sys.argv = ["planets"]  # Set to script name only for default test
 
-    # Test version flag
-    exit_code, output = capture_stdout(cli.main, ["--version"])
-    assert exit_code == 0
-    assert "planets version" in output
+    try:
+        # Test default output
+        exit_code, output = capture_stdout(cli.main)
+        assert exit_code == 0
+        assert "planets.cli.main" in output
+        assert "Use --help to see available commands" in output
 
-    # Test list flag
-    exit_code, output = capture_stdout(cli.main, ["--list"])
-    assert exit_code == 0
-    assert "Available bodies:" in output
-    # Verify at least some known planets are in the output
-    assert "Earth" in output
-    assert "Mars" in output
+        # Test version flag
+        exit_code, output = capture_stdout(cli.main, ["--version"])
+        assert exit_code == 0
+        assert "planets version" in output
 
-    # Test body flag with a valid body
-    exit_code, output = capture_stdout(cli.main, ["--body", "Earth"])
-    assert exit_code == 0
-    assert "Attributes for Earth" in output
-    assert "name" in output
+        # Test list flag
+        exit_code, output = capture_stdout(cli.main, ["--list"])
+        assert exit_code == 0
+        assert "Available bodies:" in output
+        # Verify at least some known planets are in the output
+        assert "Earth" in output
+        assert "Mars" in output
 
-    # Test body flag with an invalid body
-    exit_code, output = capture_stdout(cli.main, ["--body", "NonExistentPlanet"])
-    assert exit_code == 1
-    assert "Error: Body 'NonExistentPlanet' not found" in output
+        # Test body flag with a valid body
+        exit_code, output = capture_stdout(cli.main, ["--body", "Earth"])
+        assert exit_code == 0
+        assert "Attributes for Earth" in output
+        assert "name" in output
 
-    # We can't easily test the help flag because argparse will call sys.exit()
-    # Instead, we'll validate the parser has the expected arguments
-    parser = cli.create_parser()
-    actions = {action.dest: action for action in parser._actions}
-    assert "help" in actions
-    assert "version" in actions
-    assert "list" in actions
-    assert "body" in actions
+        # Test body flag with an invalid body
+        exit_code, output = capture_stdout(cli.main, ["--body", "NonExistentPlanet"])
+        assert exit_code == 1
+        assert "Error: Body 'NonExistentPlanet' not found" in output
+
+        # We can't easily test the help flag because argparse will call sys.exit()
+        # Instead, we'll validate the parser has the expected arguments
+        parser = cli.create_parser()
+        actions = {action.dest: action for action in parser._actions}
+        assert "help" in actions
+        assert "version" in actions
+        assert "list" in actions
+        assert "body" in actions
+    finally:
+        # Restore original argv
+        sys.argv = original_argv
