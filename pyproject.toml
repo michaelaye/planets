@@ -78,6 +78,13 @@ markers = [
     "serial: execute test serially (to avoid race conditions)",
 ]
 
+[tool.coverage.report]
+omit = [
+    "setup.py",
+    "planets/__main__.py",
+    "tests/*",
+]
+
 [tool.ruff]
 # Basic linting configuration
 line-length = 100

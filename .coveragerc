@@ -1,5 +1,0 @@
-[report]
-omit =
-    setup.py
-    planets/__main__.py
-    tests/*
