@@ -11,6 +11,8 @@ All notable changes to this project will be documented in this file.
   - Improved help text and error handling
 - Added unit display in CLI output for better readability
 - Added comprehensive test coverage for CLI functionality
+- Added `get_all_bodies()` helper function to API for easier access to available bodies
+- Added ReadTheDocs configuration file to fix documentation build issues
 
 ## [0.7.0] - 2025-03-15
 

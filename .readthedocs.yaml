@@ -6,13 +6,23 @@ version: 2
 
 # Set the OS, Python version, and other tools you might need
 build:
-  os: ubuntu-24.04
+  os: ubuntu-22.04
   tools:
-    python: "3.12"
+    python: "3.10"
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
    configuration: docs/conf.py
+
+# Install the package and its dependencies
+python:
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - dev
+    # Install additional dependencies required for your docs
+    - requirements: docs/requirements.txt
 
 # Optionally, but recommended,
 # declare the Python requirements required to build your documentation
@@ -20,4 +30,9 @@ sphinx:
 # python:
 #    install:
 #    - requirements: docs/requirements.txt
+
+# Optionally declare the Python requirements required to build your docs
+formats:
+  - pdf
+  - epub
         

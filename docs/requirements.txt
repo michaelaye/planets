@@ -1,0 +1,6 @@
+sphinx>=4.0.0
+sphinx-markdown-tables
+recommonmark
+numpy
+astropy
+pooch 
