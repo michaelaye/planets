@@ -12,17 +12,11 @@ from typing import Any, Dict, List
 _parser = None
 
 
-def get_all_bodies() -> List[str]:
-    """Get a list of all bodies from the planets module."""
-    from planets import _planets
+def get_all_bodies() -> Dict[str, List[str]]:
+    """Get a list of all bodies from the planets module, categorized by type."""
+    from planets import get_all_bodies as get_categorized_bodies
 
-    # Find all Planet objects in the module
-    body_names = []
-    for name, obj in inspect.getmembers(_planets):
-        if isinstance(obj, _planets.Planet):
-            body_names.append(name)
-
-    return sorted(body_names)
+    return get_categorized_bodies()
 
 
 def get_body_attributes(body_name: str) -> Dict[str, Any]:
@@ -38,12 +32,13 @@ def get_body_attributes(body_name: str) -> Dict[str, Any]:
     # Get all non-function attributes
     attributes = {}
     for name, value in inspect.getmembers(body):
-        # Skip special methods, private methods, and functions
+        # Skip special methods, private methods, functions, and _R since we show R
         if (
             not name.startswith("__")
             and not name.startswith("_Planet__")
             and not inspect.ismethod(value)
             and not inspect.isfunction(value)
+            and name != "_R"  # Skip _R since we show R
         ):
             attributes[name] = value
 
@@ -119,10 +114,7 @@ def main(args=None):
         return 0
 
     elif args.list:
-        bodies = get_all_bodies()
-        print("Available bodies:")
-        for body in bodies:
-            print(f"  - {body}")
+        list_bodies()
         return 0
 
     elif args.body:
@@ -152,6 +144,15 @@ def main(args=None):
         print("planets.cli.main")
         print("Use --help to see available commands.")
         return 0
+
+
+def list_bodies():
+    """List all available planetary bodies."""
+    bodies = get_all_bodies()
+    print("\nAvailable bodies:")
+    for body in bodies:
+        print(f"  {body}")
+    print()  # Add a blank line at the end
 
 
 if __name__ == "__main__":

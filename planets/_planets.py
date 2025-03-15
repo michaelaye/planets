@@ -16,7 +16,6 @@
 
 # Dependencies
 import numpy as np
-from astropy import units as u
 from astropy.constants import G, au, sigma_sb
 
 from .pck_parser import get_body_radius_km
@@ -24,6 +23,32 @@ from .pck_parser import get_body_radius_km
 AU = au.value  # Astronomical Unit [m]
 sigma = sigma_sb.value  # Stefan-Boltzmann constant [W.m-2.K-4]
 G = G.value  # Gravitational constant
+
+__all__ = [
+    "Planet",
+    # Planets
+    "Mercury",
+    "Venus",
+    "Earth",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+    "Uranus",
+    "Neptune",
+    "Pluto",
+    # Moons
+    "Moon",
+    "Titan",
+    "Europa",
+    "Ganymede",
+    "Triton",
+    # Small bodies
+    "Bennu",
+    # Constants
+    "AU",
+    "sigma",
+    "G",
+]
 
 
 class Planet:
@@ -95,7 +120,7 @@ class Planet:
     @property
     def R(self):
         if self._R is None:
-            self._R = get_body_radius_km(self.name) * u.km
+            self._R = get_body_radius_km(self.name) * 1000  # Convert to meters
         return self._R
 
     def Teq(self, latitude=0):
@@ -443,7 +468,7 @@ Triton.Tsmax = None  # Maximum surface temperature [K]
 # --------------------------------------------------------------------------
 
 # Bennu
-Bennu = Planet(R=262.5 * u.m)  # Bennu is not in generic SPICE kernel
+Bennu = Planet(R=262.5)  # Bennu is not in generic SPICE kernel
 Bennu.name = "Bennu"  # Name of the planet
 Bennu.g = 1.0e-5  # Surface gravitational acceleration [m.s-2]
 Bennu.S = 1072.7  # Annual mean solar constant [W.m-2]
