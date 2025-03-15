@@ -7,7 +7,6 @@ import pytest
 import sys
 from io import StringIO
 
-from planets import planets
 from planets import cli
 
 
