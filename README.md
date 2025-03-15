@@ -12,11 +12,32 @@ Library to provide planetary constants
 
 ## Package Structure
 
-This package uses modern Python packaging with `pyproject.toml` for configuration.
+This package uses modern Python packaging with `pyproject.toml` for configuration and Hatch for build management.
 See the changelog file for more information about changes.
 
 * Version: 0.8
 * Python 3.7+ compatible
+
+## Development with Hatch
+
+This project uses [Hatch](https://hatch.pypa.io/) for build management, testing, and publishing:
+
+```bash
+# Install Hatch
+pip install hatch
+
+# Activate development environment
+hatch shell
+
+# Run tests
+hatch run test:pytest
+
+# Build package
+hatch build
+
+# Install in development mode
+pip install -e .
+```
 
 ## Features
 

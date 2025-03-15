@@ -4,7 +4,7 @@
 
 __author__ = """K.-Michael Aye"""
 __email__ = "kmichael.aye@gmail.com"
-__version__ = "0.8"
+__version__ = "0.9"
 
 import inspect
 from typing import List

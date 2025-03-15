@@ -1,10 +1,11 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm>=6.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling>=1.18.0"]
+build-backend = "hatchling.build"
 
 [project]
 name = "planets"
-version = "0.8"
+# Dynamic version obtained from planets/__init__.py
+dynamic = ["version"]
 description = "Library to provide planetary constants"
 readme = "README.md"
 authors = [
@@ -49,11 +50,6 @@ Changelog = "https://github.com/michaelaye/planets/blob/main/CHANGELOG.md"
 
 [project.scripts]
 planets = "planets.cli:main"
-
-[tool.setuptools]
-packages = ["planets"]
-include-package-data = true
-zip-safe = false
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -119,17 +115,57 @@ line-ending = "auto"
 known-first-party = ["planets"]
 section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
 
-[tool.bumpversion]
-current_version = "0.7"
-commit = true
-tag = true
+[tool.hatch]
+version.path = "planets/__init__.py"
+# Tell Hatch to use conda for environments
+env.type = "conda"
+# Use the existing conda environments instead of creating new ones
+env.requires = ["conda-lock"]
+env.virtual = false
 
-[[tool.bumpversion.files]]
-filename = "pyproject.toml"
-search = "version = \"{current_version}\""
-replace = "version = \"{new_version}\""
+# Define default environment settings that apply to all environments
+env.name = "py312"
+env.python = "3.12"
 
-[[tool.bumpversion.files]]
-filename = "planets/__init__.py"
-search = "__version__ = \"{current_version}\""
-replace = "__version__ = \"{new_version}\"" 
+[tool.hatch.build.targets.sdist]
+include = [
+    "planets",
+    "tests",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "pyproject.toml",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["planets"]
+
+# Define environment-specific dependencies
+[tool.hatch.envs.default]
+dependencies = [
+    "pytest",
+    "pytest-cov",
+]
+
+[tool.hatch.envs.dev]
+dependencies = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "sphinx",
+    "recommonmark",
+    "sphinx-markdown-tables",
+]
+
+[tool.hatch.envs.test]
+dependencies = [
+    "pytest",
+    "pytest-cov",
+]
+
+# Configure publishing (credentials stored via 'hatch config' command)
+[tool.hatch.publish]
+
+# Use the standard PyPI repository
+[tool.hatch.publish.index]
+pypi = "https://upload.pypi.org/legacy/" 

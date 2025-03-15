@@ -21,14 +21,13 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+    - name: Install hatch
       run: |
         python -m pip install --upgrade pip
-        python -m pip install build pytest pytest-cov
-        pip install -e ".[dev]"
-    - name: Test with pytest
+        python -m pip install hatch
+    - name: Run tests
       run: |
-        pytest --cov=planets tests/
+        hatch run test:pytest --cov=planets tests/
 
   publish:
     needs: test
@@ -40,14 +39,14 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
-    - name: Install dependencies
+    - name: Install hatch
       run: |
         python -m pip install --upgrade pip
-        pip install build twine
+        python -m pip install hatch
     - name: Build and publish
       env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        HATCH_INDEX_USER: ${{ secrets.PYPI_USERNAME }}
+        HATCH_INDEX_AUTH: ${{ secrets.PYPI_PASSWORD }}
       run: |
-        python -m build
-        twine upload dist/* 
+        hatch build
+        hatch publish 

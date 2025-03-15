@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.0] - 2025-03-20
+
+### Changed
+- Switched build backend from setuptools to hatchling for improved package building
+- Switched from bumpversion to Hatch for version management
+- Removed static version from pyproject.toml in favor of dynamic versioning
+- Enhanced Conda environment integration for development workflows
+- Improved PyPI publishing configuration with better token support
+
 ## [0.8.0] - 2025-03-18
 
 ### Added
@@ -13,6 +22,9 @@ All notable changes to this project will be documented in this file.
 - Added comprehensive test coverage for CLI functionality
 - Added `get_all_bodies()` helper function to API for easier access to available bodies
 - Added ReadTheDocs configuration file to fix documentation build issues
+
+### Changed
+- Simplified project infrastructure and development environment
 
 ## [0.7.0] - 2025-03-15
 
