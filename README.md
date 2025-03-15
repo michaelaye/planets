@@ -24,6 +24,32 @@ See the changelog file for more information about changes.
 * Includes complete radii information from SPICE PCK kernels
 * Easy access to body properties by name or NAIF ID
 
+## API Usage
+
+You can access planetary data programmatically in your Python code:
+
+```python
+# Import specific planets
+from planets import Earth, Mars, Jupiter
+
+# Access planetary properties
+print(f"Earth's radius: {Earth.R} meters")
+print(f"Mars' gravity: {Mars.g} m/s²")
+print(f"Jupiter's sidereal length of year [s]: {Jupiter.year} seconds")
+
+# Get list of all available bodies (new helper function)
+from planets import get_all_bodies
+
+available_bodies = get_all_bodies()
+print(f"Available bodies: {available_bodies}")
+
+# Retrieve body attributes with units
+radius_km = Earth.R / 1000
+orbit_years = Earth.year / (365.25 * 24 * 3600)
+print(f"Earth's radius: {radius_km:.1f} km")
+print(f"Earth's orbital period: {orbit_years:.2f} years")
+```
+
 ## Command Line Interface
 
 The package includes a command-line interface for quick access to planetary data:
