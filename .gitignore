@@ -67,3 +67,5 @@ target/
 # New Pytest report
 junit.xml
 .mypy_cache
+pyrightconfig.json
+.cursor/settings.json

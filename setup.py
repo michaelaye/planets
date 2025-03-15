@@ -3,15 +3,15 @@
 
 """The setup script."""
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 with open("README.rst") as readme_file:
     readme = readme_file.read()
 
-with open("HISTORY.rst") as history_file:
+with open("CHANGELOG.md") as history_file:
     history = history_file.read()
 
-requirements = ["spiceypy", "spicer", "astropy"]
+requirements = ["astropy", "pooch"]
 
 setup_requirements = ["pytest-runner"]
 
@@ -21,9 +21,10 @@ test_requirements = [
 
 setup(
     name="planets",
-    version="version='0.4.6'",
+    version="0.6",
     description="Library to provide planetary constants",
     long_description=readme + "\n\n" + history,
+    long_description_content_type="text/markdown",
     author="K.-Michael Aye",
     author_email="kmichael.aye@gmail.com",
     url="https://github.com/michaelaye/planets",

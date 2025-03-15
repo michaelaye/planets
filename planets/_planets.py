@@ -16,14 +16,10 @@
 
 # Dependencies
 import numpy as np
-import spiceypy as spice
 from astropy import units as u
 from astropy.constants import G, au, sigma_sb
 
-import spicer
-
-spicer.load_generic_kernels()
-
+from .pck_parser import get_body_radius_km
 
 AU = au.value  # Astronomical Unit [m]
 sigma = sigma_sb.value  # Stefan-Boltzmann constant [W.m-2.K-4]
@@ -99,8 +95,7 @@ class Planet:
     @property
     def R(self):
         if self._R is None:
-            results = spice.bodvrd(self.name, "RADII", 3)
-            self._R = np.mean(results[1]) * u.km
+            self._R = get_body_radius_km(self.name) * u.km
         return self._R
 
     def Teq(self, latitude=0):
