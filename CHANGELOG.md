@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0] - 2025-03-18
+
+### Added
+- Comprehensive command-line interface (CLI) with multiple features:
+  - `--list` option to display all available planetary bodies
+  - `--body` option to show detailed attributes for a specific body
+  - Improved help text and error handling
+- Added unit display in CLI output for better readability
+- Added comprehensive test coverage for CLI functionality
+
 ## [0.7.0] - 2025-03-15
 
 ### Changed
