@@ -14,7 +14,7 @@ Library to provide planetary constants
 
 This package uses modern Python packaging with `pyproject.toml` for configuration.
 
-* Version: 0.6
+* Version: 0.7
 * Python 3.7+ compatible
 
 ## Features

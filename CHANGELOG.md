@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.6.0] - 2023-06-27
+## [0.7.0] - 2025-03-15
+
+### Changed
+- Fully modernized package structure with pyproject.toml
+- Replaced multiple tools with Ruff for linting, formatting, and import sorting
+- Converted all documentation from RST to Markdown format
+- Updated Sphinx configuration to properly support Markdown documentation
+- Simplified development dependencies
+
+## [0.6.0] - 2025-03-15
 
 ### Added
 - Added PCK parser module for extracting constants from SPICE PCK kernel files
@@ -17,7 +26,7 @@ All notable changes to this project will be documented in this file.
 - Updated documentation
 - Added support for Python 3.8, 3.9, 3.10, 3.11, and 3.12
 
-## [0.5.0] - 2023-06-24
+## [0.5.0] - 2025-03-14
 
 ### Added
 - Support for Python 3.12

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "planets"
-version = "0.6"
+version = "0.7"
 description = "Library to provide planetary constants"
 readme = "README.md"
 authors = [
@@ -113,7 +113,7 @@ known-first-party = ["planets"]
 section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
 
 [tool.bumpversion]
-current_version = "0.6"
+current_version = "0.7"
 commit = true
 tag = true
 
