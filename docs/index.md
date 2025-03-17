@@ -1,20 +1,3 @@
-# Welcome to planets's documentation!
+# Welcome to planets
 
-```{toctree}
-:maxdepth: 2
-:caption: Contents:
-
-readme
-installation
-usage
-modules
-contributing
-authors
-history
-```
-
-## Indices and tables
-
-* [Index](genindex)
-* [Module Index](modindex)
-* [Search Page](search) 
+A Python package for planetary data and calculations.

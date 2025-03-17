@@ -1,3 +1,4 @@
-# Credits
+# Authors
 
-{% include "../AUTHORS.md" %} 
+```{include} ../AUTHORS.md
+``` 

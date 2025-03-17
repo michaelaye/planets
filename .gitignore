@@ -75,3 +75,4 @@ pyrightconfig.json
 .ruff_cache/
 .nox/
 __pypackages__/
+_build/
