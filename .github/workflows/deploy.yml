@@ -23,6 +23,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deploy:
+    needs: [wait_for_tests]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -34,14 +35,26 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x
-      - name: Install MyST Markdown
-        run: npm install -g mystmd
+      - name: Install Jupyter Book 2.0
+        run: npm install -g "jupyter-book@>=2.0.0-a0"
       - name: Build HTML Assets
-        run: myst build --html
+        working-directory: ./docs
+        run: jupyter-book build --html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './_build/html'
+          path: './docs/_build/html'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  wait_for_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for tests to succeed
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'test (3.12)'  # We wait for the latest Python version test
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
