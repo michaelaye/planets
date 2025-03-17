@@ -15,7 +15,7 @@ Library to provide planetary constants
 This package uses modern Python packaging with `pyproject.toml` for configuration and Hatch for build management.
 See the changelog file for more information about changes.
 
-* Version: 0.8
+* Version: 0.9
 * Python 3.7+ compatible
 
 ## Development with Hatch
