@@ -10,6 +10,7 @@ from typing import Any, Dict, List, Optional, Union
 
 import pooch
 
+# poock automatically caches so this doesn't always download the file
 pck_path = pooch.retrieve(
     "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
     known_hash="sha256:3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
