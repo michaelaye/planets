@@ -2,13 +2,13 @@
 
 [![PyPI Version](https://img.shields.io/pypi/v/planets.svg)](https://pypi.python.org/pypi/planets)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/michaelaye/planets/python-package.yml?branch=master)](https://github.com/michaelaye/planets/actions)
-[![Documentation Status](https://readthedocs.org/projects/planets/badge/?version=latest)](https://planets.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://img.shields.io/github/actions/workflow/status/michaelaye/planets/deploy.yml?branch=master&label=docs)](https://michaelaye.github.io/planets/)
 [![Updates](https://pyup.io/repos/github/michaelaye/planets/shield.svg)](https://pyup.io/repos/github/michaelaye/planets/)
 
 Library to provide planetary constants
 
 * Free software: MIT license
-* Documentation: https://planets.readthedocs.io
+* Documentation: https://michaelaye.github.io/planets/
 
 ## Package Structure
 
